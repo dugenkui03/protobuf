@@ -43,8 +43,10 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * An implementation of {@link Message} that can represent arbitrary types, given a {@link
- * Descriptors.Descriptor}.
+ * An implementation of {@link Message} that can represent arbitrary types,
+ * given a {@link  Descriptors.Descriptor}.
+ *
+ * 可以代表任意的 Message 类型
  *
  * @author kenton@google.com Kenton Varda
  */
@@ -56,18 +58,25 @@ public final class DynamicMessage extends AbstractMessage {
   private int memoizedSize = -1;
 
   /**
-   * Construct a {@code DynamicMessage} using the given {@code FieldSet}. oneofCases stores the
-   * FieldDescriptor for each oneof to indicate which field is set. Caller should make sure the
-   * array is immutable.
+   * 使用指定的 {@link FieldSet} 创建该对象。
+   * 调用者应该保证oneofCases不会被改变。
    *
-   * <p>This constructor is package private and will be used in {@code DynamicMutableMessage} to
-   * convert a mutable message to an immutable message.
+   * Construct a {@code DynamicMessage} using the given {@code FieldSet}.
+   * oneofCases stores the FieldDescriptor for each oneof to indicate which field is set.
+   * Caller should make sure the array is immutable.
+   *
+   * <p>
+   *     This constructor is package private
+   *     and will be used in {@code DynamicMutableMessage}
+   *     to convert a mutable message to an immutable message.
+   *     这个构造器是包内私有的，在 DynamicMutableMessage 中用来将一个可变的消息转换为一个不可变的消息。
+   *
+   * @param type
+   * @param fields
+   * @param oneofCases
+   * @param unknownFields
    */
-  DynamicMessage(
-      Descriptor type,
-      FieldSet<FieldDescriptor> fields,
-      FieldDescriptor[] oneofCases,
-      UnknownFieldSet unknownFields) {
+  DynamicMessage(Descriptor type, FieldSet<FieldDescriptor> fields, FieldDescriptor[] oneofCases, UnknownFieldSet unknownFields) {
     this.type = type;
     this.fields = fields;
     this.oneofCases = oneofCases;
@@ -86,16 +95,21 @@ public final class DynamicMessage extends AbstractMessage {
   }
 
 
-  /** Parse a message of the given type from the given input stream. */
-  public static DynamicMessage parseFrom(Descriptor type, CodedInputStream input)
-      throws IOException {
+  /**
+   * Parse a message of the given type from the given input stream.
+   *
+   * 将 CodedInputStream 解析为指定类型的消息。
+   */
+  public static DynamicMessage parseFrom(Descriptor type, CodedInputStream input) throws IOException {
     return newBuilder(type).mergeFrom(input).buildParsed();
   }
 
-  /** Parse a message of the given type from the given input stream. */
-  public static DynamicMessage parseFrom(
-      Descriptor type, CodedInputStream input, ExtensionRegistry extensionRegistry)
-      throws IOException {
+  /**
+   * Parse a message of the given type from the given input stream.
+   */
+  public static DynamicMessage parseFrom(Descriptor type,
+                                         CodedInputStream input,
+                                         ExtensionRegistry extensionRegistry) throws IOException {
     return newBuilder(type).mergeFrom(input, extensionRegistry).buildParsed();
   }
 
@@ -136,7 +150,11 @@ public final class DynamicMessage extends AbstractMessage {
     return newBuilder(type).mergeFrom(input, extensionRegistry).buildParsed();
   }
 
-  /** Construct a {@link Message.Builder} for the given type. */
+  /**
+   * Construct a {@link Message.Builder} for the given type.
+   *
+   * 使用指定的类型构建 {@link Message.Builder} 对象。
+   */
   public static Builder newBuilder(Descriptor type) {
     return new Builder(type);
   }

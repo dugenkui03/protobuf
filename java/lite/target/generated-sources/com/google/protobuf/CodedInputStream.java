@@ -49,7 +49,6 @@ import java.util.List;
 
 /**
  * Reads and decodes protocol message fields.
- * fixme 读取并解码 proto消息字段。
  *
  * <p>This class contains two kinds of methods: methods that read specific protocol message
  * constructs and field types (e.g. {@link #readTag()} and {@link #readInt32()}) and methods that

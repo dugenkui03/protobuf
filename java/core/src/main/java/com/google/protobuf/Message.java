@@ -144,7 +144,11 @@ public interface Message extends MessageLite, MessageOrBuilder {
     Builder mergeFrom(CodedInputStream input, ExtensionRegistryLite extensionRegistry)
         throws IOException;
 
-    /** Get the message's type's descriptor. See {@link Message#getDescriptorForType()}. */
+    /**
+     * Get the message's type's descriptor. See {@link Message#getDescriptorForType()}.
+     *
+     * 返回消息的类型描述。
+     */
     @Override
     Descriptors.Descriptor getDescriptorForType();
 

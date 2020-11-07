@@ -64,10 +64,22 @@ import java.util.logging.Logger;
 /**
  * Contains a collection of classes which describe protocol message types.
  *
- * <p>Every message type has a {@link Descriptor}, which lists all its fields and other information
- * about a type. You can get a message type's descriptor by calling {@code
- * MessageType.getDescriptor()}, or (given a message object of the type) {@code
- * message.getDescriptorForType()}. Furthermore, each message is associated with a {@link
+ * fixme 包含一个 类集合、用来描述 proto消息 类型。
+ *
+ * <p>
+ *     Every message type has a {@link Descriptor},
+ *     which lists all its fields and other information about a type.
+ * fixme
+ *     每一个字段都有一个{@link Descriptor}，包含该字段和字段的类型信息。
+ *
+ *
+ * You can get a message type's descriptor
+ * by calling {@code MessageType.getDescriptor()},
+ * or (given a message object of the type) {@code message.getDescriptorForType()}.
+ *
+ *
+ *
+ * Furthermore, each message is associated with a {@link
  * FileDescriptor} for a relevant {@code .proto} file. You can obtain it by calling {@code
  * Descriptor.getFile()}. A {@link FileDescriptor} contains descriptors for all the messages defined
  * in that file, and file descriptors for all the imported {@code .proto} files.
@@ -79,13 +91,21 @@ import java.util.logging.Logger;
  */
 public final class Descriptors {
   private static final Logger logger = Logger.getLogger(Descriptors.class.getName());
+
   /**
-   * Describes a {@code .proto} file, including everything defined within. That includes, in
-   * particular, descriptors for all the messages and file descriptors for all other imported {@code
-   * .proto} files (dependencies).
+   * Describes a {@code .proto} file, including everything defined within.
+   * That includes, in particular, descriptors for all the messages
+   * and file descriptors for all other imported {@code .proto} files (dependencies).
+   *
+   * fixme
+   *      proto文件的描述，包含所有定义在文件中的内容。
+   *      主要包括 message定义描述 和 引入的 proto文件。
    */
   public static final class FileDescriptor extends GenericDescriptor {
-    /** Convert the descriptor to its protocol message representation. */
+
+    /**
+     * Convert the descriptor to its protocol message representation.
+     */
     @Override
     public FileDescriptorProto toProto() {
       return proto;
@@ -625,7 +645,11 @@ public final class Descriptors {
 
   // =================================================================
 
-  /** Describes a message type. */
+  /**
+   * Describes a message type.
+   *
+   * 描述一个消息的类型信息。
+   */
   public static final class Descriptor extends GenericDescriptor {
     /**
      * Get the index of this descriptor within its parent. In other words, given a {@link
@@ -647,21 +671,19 @@ public final class Descriptors {
       return index;
     }
 
-    /** Convert the descriptor to its protocol message representation. */
     @Override
     public DescriptorProto toProto() {
       return proto;
     }
 
-    /** Get the type's unqualified name. */
     @Override
     public String getName() {
       return proto.getName();
     }
 
     /**
-     * Get the type's fully-qualified name, within the proto language's namespace. This differs from
-     * the Java name. For example, given this {@code .proto}:
+     * Get the type's fully-qualified name, within the proto language's namespace.
+     * This differs from the Java name. For example, given this {@code .proto}:
      *
      * <pre>
      *   package foo.bar;
@@ -676,7 +698,11 @@ public final class Descriptors {
       return fullName;
     }
 
-    /** Get the {@link FileDescriptor} containing this descriptor. */
+    /**
+     * Get the {@link FileDescriptor} containing this descriptor.
+     *
+     * 获取包含此 descriptor 的 {@link FileDescriptor}
+     */
     @Override
     public FileDescriptor getFile() {
       return file;
@@ -964,9 +990,15 @@ public final class Descriptors {
 
   // =================================================================
 
-  /** Describes a field of a message type. */
-  public static final class FieldDescriptor extends GenericDescriptor
-      implements Comparable<FieldDescriptor>, FieldSet.FieldDescriptorLite<FieldDescriptor> {
+  /**
+   * Describes a field of a message type.
+   *
+   * fixme 描述一个 message消息 中的字段。
+   */
+  public static final class FieldDescriptor
+          extends GenericDescriptor
+          implements Comparable<FieldDescriptor>, FieldSet.FieldDescriptorLite<FieldDescriptor> {
+
     /**
      * Get the index of this descriptor within its parent.
      *
@@ -976,19 +1008,27 @@ public final class Descriptors {
       return index;
     }
 
-    /** Convert the descriptor to its protocol message representation. */
+    /**
+     * Convert the descriptor to its protocol message representation.
+     */
     @Override
     public FieldDescriptorProto toProto() {
       return proto;
     }
 
-    /** Get the field's unqualified name. */
+    /**
+     * Get the field's unqualified name.
+     *
+     * 非全限定名称。
+     */
     @Override
     public String getName() {
       return proto.getName();
     }
 
-    /** Get the field's number. */
+    /**
+     * Get the field's number.
+     */
     @Override
     public int getNumber() {
       return proto.getNumber();
@@ -996,6 +1036,8 @@ public final class Descriptors {
 
     /**
      * Get the field's fully-qualified name.
+     *
+     * 获取字段的全限定名称。
      *
      * @see Descriptors.Descriptor#getFullName()
      */
@@ -1010,8 +1052,11 @@ public final class Descriptors {
     }
 
     /**
-     * Get the field's java type. This is just for convenience. Every {@code
-     * FieldDescriptorProto.Type} maps to exactly one Java type.
+     * Get the field's java type.
+     * This is just for convenience.
+     * Every {@link FieldDescriptorProto.Type} maps to exactly one Java type.
+     *
+     * fixme 重要：获取该字段对应的java类型。
      */
     public JavaType getJavaType() {
       return type.getJavaType();
@@ -1314,6 +1359,7 @@ public final class Descriptors {
     }
 
     public enum JavaType {
+      // 基本的类型
       INT(0),
       LONG(0L),
       FLOAT(0F),
@@ -1321,6 +1367,8 @@ public final class Descriptors {
       BOOLEAN(false),
       STRING(""),
       BYTE_STRING(ByteString.EMPTY),
+
+      // 枚举和类
       ENUM(null),
       MESSAGE(null);
 
@@ -2173,20 +2221,58 @@ public final class Descriptors {
   // =================================================================
 
   /**
-   * All descriptors implement this to make it easier to implement tools like {@code
-   * DescriptorPool}.
+   * All {@link Descriptor} implement this
+   * to make it easier to implement tools like {@link DescriptorPool}.
+   *
+   * 所有的 descriptors 都实现了这个抽象类，使其能够简单的实现类似于 DescriptorPool 这样的工具。
+   *
+   * fixme:
+   *    1.
+   *    2.
+   *    3.
+   *    4.
    */
   public abstract static class GenericDescriptor {
 
-    // Private constructor to prevent subclasses outside of com.google.protobuf.Descriptors
+    // Private constructor to prevent subclasses
+    // outside of com.google.protobuf.Descriptors
+    // 防止使用创建。
     private GenericDescriptor() {}
 
+    /**
+     * Convert the descriptor to its protocol message representation.
+     *
+     * 将此 descriptor 转换为 proto 消息代表。
+     */
     public abstract Message toProto();
 
+    /**
+     * @return get the type's unqualified name.
+     *         获取类型的非限定名称。
+     */
     public abstract String getName();
 
+    /**
+     * Get the type's fully-qualified name, within the proto language's namespace.
+     * This differs from the Java name. For example, given this {@code .proto}:
+     *
+     * <pre>
+     *   package foo.bar;
+     *   option java_package = "com.example.protos"
+     *   message Baz {}
+     * </pre>
+     *
+     * {@code Baz}'s full name is "foo.bar.Baz".
+     *
+     * @return fixme 获取全限定名称，报名使用 proto 的package
+     */
     public abstract String getFullName();
 
+    /**
+     * Get the {@link FileDescriptor} containing this descriptor.
+     *
+     * @return 获取包含此 descriptor 的 {@link FileDescriptor}
+     */
     public abstract FileDescriptor getFile();
   }
 

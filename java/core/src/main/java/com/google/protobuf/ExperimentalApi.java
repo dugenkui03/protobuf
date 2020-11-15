@@ -37,8 +37,9 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Indicates a public API that can change at any time, and has no guarantee of API stability and
- * backward-compatibility.
+ * Indicates a public API that can change at any time,
+ * and has no guarantee of API stability and backward-compatibility.
+ * fixme 不保证兼容性、稳定性，可能随时修改协议。可用于各种语言元素。
  *
  * <p>Usage guidelines:
  *
@@ -60,6 +61,8 @@ import java.lang.annotation.Target;
 })
 @Documented
 public @interface ExperimentalApi {
-  /** Context information such as links to discussion thread, tracking issue etc. */
+  /**
+   * Context information such as links to discussion thread, tracking issue etc.
+   */
   String value() default "";
 }

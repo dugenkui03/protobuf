@@ -76,8 +76,14 @@ import java.util.TreeMap;
  *
  * @author kenton@google.com Kenton Varda
  */
-public abstract class GeneratedMessageV3 extends AbstractMessage
-    implements Serializable {
+public abstract class GeneratedMessageV3
+        // 继承了 抽象定义
+        extends AbstractMessage
+        // 可序列化
+        implements Serializable {
+
+
+  // 序列化id
   private static final long serialVersionUID = 1L;
 
   /**

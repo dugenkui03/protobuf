@@ -44,14 +44,17 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * TODO(dweis): Update GeneratedMessage to parameterize with MessageType and BuilderType.
+ *
  * A partial implementation of the {@link Message} interface which implements as many methods of
  * that interface as possible in terms of other methods.
  *
  * @author kenton@google.com Kenton Varda
  */
 public abstract class AbstractMessage
-    // TODO(dweis): Update GeneratedMessage to parameterize with MessageType and BuilderType.
-    extends AbstractMessageLite implements Message {
+        //
+        extends AbstractMessageLite
+        implements Message {
 
   @Override
   public boolean isInitialized() {

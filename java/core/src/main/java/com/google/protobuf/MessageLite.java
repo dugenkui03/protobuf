@@ -39,6 +39,7 @@ import java.io.OutputStream;
 
 /**
  * Abstract interface implemented by Protocol Message objects.
+ * fixme
  *
  * <p>This interface is implemented by all protocol message objects. Non-lite messages additionally
  * implement the Message interface, which is a subclass of MessageLite. Use MessageLite instead when

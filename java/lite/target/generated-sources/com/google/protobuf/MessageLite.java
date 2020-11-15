@@ -124,8 +124,10 @@ public interface MessageLite extends MessageLiteOrBuilder {
   Builder newBuilderForType();
 
   /**
-   * Constructs a builder initialized with the current message. Use this to derive a new message
-   * from the current one.
+   * Constructs a builder initialized with the current message.
+   * Use this to derive a new message from the current one.
+   *
+   * fixme 使用当前的 message 构建一个对象的 Builder、主要是为了方便拷贝对象字段引用。
    */
   Builder toBuilder();
 

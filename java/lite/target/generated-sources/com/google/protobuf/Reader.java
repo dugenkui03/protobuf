@@ -34,25 +34,44 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-/** A reader of fields from a serialized protobuf message. */
-// TODO(nathanmittler): Refactor to allow the reader to allocate properly sized lists.
+/**
+ * TODO(nathanmittler): Refactor to allow the reader to allocate properly sized lists.
+ *
+ * A reader of fields from a serialized protobuf message.
+ * 从序列化的protobuf消息中读取数据的 reader。
+ */
 @ExperimentalApi
 interface Reader {
-  /** Value used to indicate that the end of input has been reached. */
+  /**
+   * Value used to indicate that the end of input has been reached.
+   *
+   * 标识读取到了 输入的 末尾。
+   */
   int READ_DONE = Integer.MAX_VALUE;
 
-  /** Value used to indicate that the reader does not know the tag about the field. */
+  /**
+   * Value used to indicate that the reader does not know the tag about the field.
+   *
+   * 标识 reader 不知道 字段的 标签。
+   */
   int TAG_UNKNOWN = 0;
 
+  /**
+   * @return 是否应该忽视 未知字段。
+   */
   boolean shouldDiscardUnknownFields();
 
   /**
    * Gets the field number for the current field being read.
+   * fixme 获取当前正在读取的 字段号码。
    *
-   * <p>TODO(liujisi): Rename it to make it more explicit about the side effect on the underlying
-   * buffer.
+   * <p>
+   *   TODO(liujisi):
+   *    Rename it to make it more explicit
+   *    about the side effect on the underlying buffer.
    *
-   * @return the current field number or {@link #READ_DONE} if the end of input has been reached.
+   * @return the current field number
+   *         or {@link #READ_DONE} if the end of input has been reached.
    */
   int getFieldNumber() throws IOException;
 

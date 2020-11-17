@@ -34,20 +34,34 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-/** A writer that performs serialization of protobuf message fields. */
+/**
+ * A writer that performs serialization of protobuf message fields.
+ *
+ *  对 message 字段进行序列化。
+ */
 @ExperimentalApi
 interface Writer {
 
-  /** The order in which the fields are written by a {@link Writer}. */
+  /**
+   * The order in which the fields are written by a {@link Writer}.
+   *
+   * 使用 Writer 书写的字段名称。
+   */
   enum FieldOrder {
-    /** Fields are written in ascending order by field number. */
+    /**
+     * Fields are written in ascending(升序) order by field number.
+     */
     ASCENDING,
 
-    /** Fields are written in descending order by field number. */
+    /**
+     * Fields are written in descending(降序) order by field number.
+     */
     DESCENDING
   }
 
-  /** Indicates the order in which the fields are written by this {@link Writer}. */
+  /**
+   * Indicates the order in which the fields are written by this {@link Writer}.
+   */
   FieldOrder fieldOrder();
 
   /** Writes a field of type {@link FieldType#SFIXED32}. */

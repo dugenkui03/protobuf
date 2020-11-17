@@ -1875,10 +1875,13 @@ public final class Descriptors {
    * number. In generated Java code, all values with the same number after the first become aliases
    * of the first. However, they still have independent EnumValueDescriptors.
    */
-  public static final class EnumValueDescriptor extends GenericDescriptor
-      implements Internal.EnumLite {
+  public static final class EnumValueDescriptor
+          extends GenericDescriptor
+          implements Internal.EnumLite {
     /**
      * Get the index of this descriptor within its parent.
+     *
+     * 返回枚举值的下标。
      *
      * @see Descriptors.Descriptor#getIndex()
      */
@@ -1886,19 +1889,27 @@ public final class Descriptors {
       return index;
     }
 
-    /** Convert the descriptor to its protocol message representation. */
+    /**
+     * Convert the descriptor to its protocol message representation.
+     *
+     * 将 descriptor 转换成 EnumValueDescriptorProto、包含更多的字段信息。
+     */
     @Override
     public EnumValueDescriptorProto toProto() {
       return proto;
     }
 
-    /** Get the value's unqualified name. */
+    /**
+     * Get the value's unqualified name.
+     *
+     * 返回枚举值名称。
+     */
     @Override
     public String getName() {
       return proto.getName();
     }
 
-    /** Get the value's number. */
+    // 返回 声明序列号
     @Override
     public int getNumber() {
       return proto.getNumber();
@@ -1910,7 +1921,7 @@ public final class Descriptors {
     }
 
     /**
-     * Get the value's fully-qualified name.
+     * Get the value's fully-qualified name. 值名称
      *
      * @see Descriptors.Descriptor#getFullName()
      */
@@ -1919,18 +1930,30 @@ public final class Descriptors {
       return fullName;
     }
 
-    /** Get the {@link FileDescriptor} containing this descriptor. */
+    /**
+     * Get the {@link FileDescriptor} containing this descriptor.
+     *
+     * fixme 包含该字段的 文件描述类。
+     */
     @Override
     public FileDescriptor getFile() {
       return file;
     }
 
-    /** Get the value's enum type. */
+    /**
+     * Get the value's enum type.
+     *
+     * 返回值的枚举类型。
+     */
     public EnumDescriptor getType() {
       return type;
     }
 
-    /** Get the {@code EnumValueOptions}, defined in {@code descriptor.proto}. */
+    /**
+     * Get the {@code EnumValueOptions}, defined in {@code descriptor.proto}.
+     *
+     * 返回枚举值的 EnumValueOptions 对象，包括是否被弃用等信息。
+     */
     public EnumValueOptions getOptions() {
       return proto.getOptions();
     }
@@ -1941,19 +1964,18 @@ public final class Descriptors {
     private final FileDescriptor file;
     private final EnumDescriptor type;
 
+    // 构造函数
     private EnumValueDescriptor(
-        final EnumValueDescriptorProto proto,
-        final FileDescriptor file,
-        final EnumDescriptor parent,
-        final int index)
-        throws DescriptorValidationException {
+            final EnumValueDescriptorProto proto,
+            final FileDescriptor file,
+            final EnumDescriptor parent,
+            final int index)
+            throws DescriptorValidationException {
       this.index = index;
       this.proto = proto;
       this.file = file;
       type = parent;
-
       fullName = parent.getFullName() + '.' + proto.getName();
-
       file.pool.addSymbol(this);
       file.pool.addEnumValueByNumber(this);
     }
@@ -1973,7 +1995,9 @@ public final class Descriptors {
       // Don't add this descriptor into pool.
     }
 
-    /** See {@link FileDescriptor#setProto}. */
+    /**
+     * See {@link FileDescriptor#setProto}.
+     */
     private void setProto(final EnumValueDescriptorProto proto) {
       this.proto = proto;
     }

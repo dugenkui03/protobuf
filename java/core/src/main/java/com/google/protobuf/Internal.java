@@ -192,17 +192,25 @@ public final class Internal {
   }
 
   /**
-   * Interface for an enum value or value descriptor, to be used in FieldSet. The lite library
-   * stores enum values directly in FieldSets but the full library stores EnumValueDescriptors in
-   * order to better support reflection.
+   * Interface for an enum value or value descriptor,
+   * to be used in FieldSet.
+   * The lite library  stores enum values directly in FieldSets
+   * but the full library stores EnumValueDescriptors in order to better support reflection.
+   *
+   * fixme
+   *      枚举值或者枚举值描述的接口，在 FieldSet 中使用。
+   *      lite库在FieldSets存储枚举值； 全库存放EnumValueDescriptors、以更好的支持反射。
    */
   public interface EnumLite {
     int getNumber();
   }
 
   /**
-   * Interface for an object which maps integers to {@link EnumLite}s. {@link
-   * Descriptors.EnumDescriptor} implements this interface by mapping numbers to {@link
+   * Interface for an object which maps integers to {@link EnumLite}s.
+   * fixme
+   *     将整型值应声为 EnumLite 对象。
+   *
+   * {@link Descriptors.EnumDescriptor} implements this interface by mapping numbers to {@link
    * Descriptors.EnumValueDescriptor}s. Additionally, every generated enum type has a static method
    * internalGetValueMap() which returns an implementation of this type that maps numbers to enum
    * values.

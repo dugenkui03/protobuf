@@ -227,9 +227,11 @@ public abstract class AbstractMessage
   }
 
   /**
-   * Compares two set of fields. This method is used to implement {@link
-   * AbstractMessage#equals(Object)} and {@link AbstractMutableMessage#equals(Object)}. It takes
-   * special care of bytes fields because immutable messages and mutable messages use different Java
+   * Compares two set of fields.
+   * This method is used to implement {@link AbstractMessage#equals(Object)} and {@link AbstractMutableMessage#equals(Object)}.
+   * fixme 用来比较两个字段集合，用来实现equals方法。
+   *
+   * It takes special care of bytes fields because immutable messages and mutable messages use different Java
    * type to represent a bytes field and this method should be able to compare immutable messages,
    * mutable messages and also an immutable message to a mutable message.
    */

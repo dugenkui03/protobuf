@@ -93,8 +93,12 @@ public abstract class GeneratedMessageV3
    */
   protected static boolean alwaysUseFieldBuilders = false;
 
-  /** For use by generated code only.  */
-  protected UnknownFieldSet unknownFields;
+    /**
+     * For use by generated code only.
+     *
+     * 内部使用
+     */
+    protected UnknownFieldSet unknownFields;
 
   protected GeneratedMessageV3() {
     unknownFields = UnknownFieldSet.getDefaultInstance();

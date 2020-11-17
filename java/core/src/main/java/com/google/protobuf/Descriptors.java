@@ -111,19 +111,27 @@ public final class Descriptors {
       return proto;
     }
 
-    /** Get the file name. */
+    /**
+     * Get the file name.
+     *
+     * fixme 获取proto文件名称。
+     */
     @Override
     public String getName() {
       return proto.getName();
     }
 
-    /** Returns this object. */
+    /**
+     * Returns this object.
+     */
     @Override
     public FileDescriptor getFile() {
       return this;
     }
 
-    /** Returns the same as getName(). */
+    /**
+     * Returns the same as getName().
+     */
     @Override
     public String getFullName() {
       return proto.getName();
@@ -132,6 +140,8 @@ public final class Descriptors {
     /**
      * Get the proto package name. This is the package name given by the {@code package} statement
      * in the {@code .proto} file, which differs from the Java package.
+     *
+     * fixme 返回包名称。
      */
     public String getPackage() {
       return proto.getPackage();
@@ -997,7 +1007,8 @@ public final class Descriptors {
    */
   public static final class FieldDescriptor
           extends GenericDescriptor
-          implements Comparable<FieldDescriptor>, FieldSet.FieldDescriptorLite<FieldDescriptor> {
+          implements Comparable<FieldDescriptor>,
+                     FieldSet.FieldDescriptorLite<FieldDescriptor> {
 
     /**
      * Get the index of this descriptor within its parent.
@@ -1681,13 +1692,18 @@ public final class Descriptors {
 
   }
 
-  // =================================================================
-
-  /** Describes an enum type. */
-  public static final class EnumDescriptor extends GenericDescriptor
-      implements Internal.EnumLiteMap<EnumValueDescriptor> {
+  // ================================ EnumDescriptor =================================
+  /**
+   * Describes an enum type.
+   *
+   * 描述枚举类型
+   */
+  public static final class EnumDescriptor
+          extends GenericDescriptor
+          implements Internal.EnumLiteMap<EnumValueDescriptor> {
     /**
      * Get the index of this descriptor within its parent.
+     * fixme 在父类中的下标。
      *
      * @see Descriptors.Descriptor#getIndex()
      */
@@ -1695,13 +1711,17 @@ public final class Descriptors {
       return index;
     }
 
-    /** Convert the descriptor to its protocol message representation. */
+    /**
+     * Convert the descriptor to its protocol message representation.
+     */
     @Override
     public EnumDescriptorProto toProto() {
       return proto;
     }
 
-    /** Get the type's unqualified name. */
+    /**
+     * Get the type's unqualified name.
+     */
     @Override
     public String getName() {
       return proto.getName();
@@ -1717,23 +1737,35 @@ public final class Descriptors {
       return fullName;
     }
 
-    /** Get the {@link FileDescriptor} containing this descriptor. */
+    /**
+     * Get the {@link FileDescriptor} containing this descriptor.
+     */
     @Override
     public FileDescriptor getFile() {
       return file;
     }
 
-    /** If this is a nested type, get the outer descriptor, otherwise null. */
+    /**
+     * If this is a nested type, get the outer descriptor, otherwise null.
+     *
+     * 如果是个嵌套类型、则返回外部的 描述类。
+     */
     public Descriptor getContainingType() {
       return containingType;
     }
 
-    /** Get the {@code EnumOptions}, defined in {@code descriptor.proto}. */
+    /**
+     * Get the {@code EnumOptions}, defined in {@code descriptor.proto}.
+     */
     public EnumOptions getOptions() {
       return proto.getOptions();
     }
 
-    /** Get a list of defined values for this enum. */
+    /**
+     * Get a list of defined values for this enum.
+     *
+     * 返回该枚举定义的枚举值
+     */
     public List<EnumValueDescriptor> getValues() {
       return Collections.unmodifiableList(Arrays.asList(values));
     }
@@ -1830,14 +1862,14 @@ public final class Descriptors {
     private final Descriptor containingType;
     private EnumValueDescriptor[] values;
     private final WeakHashMap<Integer, WeakReference<EnumValueDescriptor>> unknownValues =
-        new WeakHashMap<Integer, WeakReference<EnumValueDescriptor>>();
+            new WeakHashMap<Integer, WeakReference<EnumValueDescriptor>>();
 
     private EnumDescriptor(
-        final EnumDescriptorProto proto,
-        final FileDescriptor file,
-        final Descriptor parent,
-        final int index)
-        throws DescriptorValidationException {
+            final EnumDescriptorProto proto,
+            final FileDescriptor file,
+            final Descriptor parent,
+            final int index)
+            throws DescriptorValidationException {
       this.index = index;
       this.proto = proto;
       fullName = computeFullName(file, parent, proto.getName());
@@ -1858,7 +1890,9 @@ public final class Descriptors {
       file.pool.addSymbol(this);
     }
 
-    /** See {@link FileDescriptor#setProto}. */
+    /**
+     * See {@link FileDescriptor#setProto}.
+     */
     private void setProto(final EnumDescriptorProto proto) {
       this.proto = proto;
 
@@ -1871,7 +1905,10 @@ public final class Descriptors {
   // =================================================================
 
   /**
-   * Describes one value within an enum type. Note that multiple defined values may have the same
+   * Describes one value within an enum type.
+   * fixme 描述枚举类型中的一个值。
+   *
+   * Note that multiple defined values may have the same
    * number. In generated Java code, all values with the same number after the first become aliases
    * of the first. However, they still have independent EnumValueDescriptors.
    */
@@ -2245,34 +2282,27 @@ public final class Descriptors {
   // =================================================================
 
   /**
+   * fixme 所有的 descriptors 都实现了这个抽象类，使其能够简单的实现类似于 DescriptorPool 这样的工具。
+   *
    * All {@link Descriptor} implement this
    * to make it easier to implement tools like {@link DescriptorPool}.
-   *
-   * 所有的 descriptors 都实现了这个抽象类，使其能够简单的实现类似于 DescriptorPool 这样的工具。
-   *
-   * fixme:
-   *    1.
-   *    2.
-   *    3.
-   *    4.
    */
   public abstract static class GenericDescriptor {
 
     // Private constructor to prevent subclasses
     // outside of com.google.protobuf.Descriptors
-    // 防止使用创建。
+    // fixme 防止使用创建空类。
     private GenericDescriptor() {}
 
     /**
      * Convert the descriptor to its protocol message representation.
      *
-     * 将此 descriptor 转换为 proto 消息代表。
+     * fixme 将此 descriptor 转换为 proto 表示
      */
     public abstract Message toProto();
 
     /**
      * @return get the type's unqualified name.
-     *         获取类型的非限定名称。
      */
     public abstract String getName();
 
@@ -2288,14 +2318,14 @@ public final class Descriptors {
      *
      * {@code Baz}'s full name is "foo.bar.Baz".
      *
-     * @return fixme 获取全限定名称，报名使用 proto 的package
+     * @return fixme 获取全限定名称，使用 proto 的package
      */
     public abstract String getFullName();
 
     /**
      * Get the {@link FileDescriptor} containing this descriptor.
      *
-     * @return 获取包含此 descriptor 的 {@link FileDescriptor}
+     * @return fixme 获取包含此 descriptor 的 {@link FileDescriptor}
      */
     public abstract FileDescriptor getFile();
   }
@@ -2359,12 +2389,18 @@ public final class Descriptors {
   // =================================================================
 
   /**
-   * A private helper class which contains lookup tables containing all the descriptors defined in a
-   * particular file.
+   * A private helper class which contains lookup tables
+   * containing all the descriptors defined in a particular(特别的) file.
+   *
+   * fixme 私有的协助类、其查找表方法包含指定的文件中定义的所有描述符。
    */
   private static final class DescriptorPool {
 
-    /** Defines what subclass of descriptors to search in the descriptor pool. */
+    /**
+     * Defines what subclass of descriptors to search in the descriptor pool.
+     *
+     * 查找过滤器：只有类型、只有合计、所有的符号
+     */
     enum SearchFilter {
       TYPES_ONLY,
       AGGREGATES_ONLY,
@@ -2599,9 +2635,15 @@ public final class Descriptors {
     }
 
     /**
-     * Represents a package in the symbol table. We use PackageDescriptors just as placeholders so
-     * that someone cannot define, say, a message type that has the same name as an existing
-     * package.
+     * Represents a package in the symbol table.
+     * We use PackageDescriptors just as placeholders
+     * so that someone cannot define, say, a message type
+     * that has the same name as an existing package.
+     *
+     * fixme 代表符号表中的 package，
+     *       我们使用 PackageDescriptor 作为一个占位符(someone不能再定义)
+     *       一个拥有相同名称的message类型作为一个存在的package。
+     *
      */
     private static final class PackageDescriptor extends GenericDescriptor {
       @Override

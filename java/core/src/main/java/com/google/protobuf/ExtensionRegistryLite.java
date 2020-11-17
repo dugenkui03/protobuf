@@ -35,6 +35,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * fixme
+ *      同 {@link ExtensionRegistry}，但是只支持 lite类型。
+ *      如果所有的类型都是 lite类型、则使用ExtensionRegistryLite即可。反之如果都是正式类型、则使用ExtensionRegistry。
+ *
  * Equivalent to {@link ExtensionRegistry} but supports only "lite" types.
  *
  * <p>If all of your types are lite types, then you only need to use {@code ExtensionRegistryLite}.

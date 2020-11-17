@@ -56,6 +56,7 @@ public abstract class AbstractParser<MessageType extends MessageLite>
   }
 
   /**
+   * fixme 检查message是否已经初始化。
    * Helper method to check if message is initialized.
    *
    * @throws InvalidProtocolBufferException if it is not initialized.

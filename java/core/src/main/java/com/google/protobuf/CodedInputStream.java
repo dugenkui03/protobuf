@@ -59,7 +59,7 @@ import java.util.List;
  *
  * @author kenton@google.com Kenton Varda
  */
-public abstract class CodedInputStream {
+public abstract class  CodedInputStream {
   private static final int DEFAULT_BUFFER_SIZE = 4096;
   private static final int DEFAULT_RECURSION_LIMIT = 100;
   // Integer.MAX_VALUE == 0x7FFFFFF == INT_MAX from limits.h

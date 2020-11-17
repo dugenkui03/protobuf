@@ -42,6 +42,11 @@ import java.nio.ByteBuffer;
  * like an encoding error, the cause of the thrown exception will be {@code null}. However, if an
  * I/O problem occurs, an exception is thrown with an {@link java.io.IOException} cause.
  *
+ * <p>
+ * fixme 从各种输入中解析 MessageType(pb对象) 类型的对象。实现应该是无状态且线程安全的。
+ *       所有的方法都可能抛出检查异常：如果出现了无效数据、例如编码错误，异常的cause为null，
+ *       如果是其他IO错误，则异常的cause为IOException。
+ *
  * @author liujisi@google.com (Pherl Liu)
  */
 public interface Parser<MessageType> {
